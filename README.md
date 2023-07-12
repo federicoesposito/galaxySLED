@@ -5,7 +5,7 @@ A new physically-motivated model for estimating the molecular line emission in a
 We developed a code to estimate the CO emission in AGN-host galaxies. The underlying model is described in Esposito et al. (submitted), and it has been tested with the data presented in Esposito et al. 2022.
 
 ## Download the code and the data
-- Select Code and click "Download ZIP"
+- Select the drop-down menu "Code" and click "Download ZIP"
 - Extract it in your favourite location
 
 ## Set up the environment
