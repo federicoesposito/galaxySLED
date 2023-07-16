@@ -1,8 +1,22 @@
-# license etc
+# galaxySLED: a code to reproduce and fit a galaxy CO SLED
+# Copyright (C) 2023  Federico Esposito
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 
 # IMPORT PACKAGES
-
 import os
 import numpy as np
 import pandas as pd
@@ -11,6 +25,7 @@ from scipy.integrate import simpson
 import random
 from joblib import Parallel, delayed
 import multiprocessing
+from gmcs import * 
 
 
 
@@ -132,23 +147,24 @@ def gmc_fill_single_ring(i, ring, gmcs, mass_distr, cluster_params, verbose=Fals
     return ring
 
 
-def gmc_fill(outfolder, Mmol_tot, r25, logR_step, gmcs, a, n_cores=None, verbose=False):
+def gmc_fill(outfolder, Mmol_tot, r25, logR_end=None, logR_step=0.05, a=1.64, gmcs=e23list, n_cores=None, verbose=False):
     '''
     Calculates the galaxy volume, then it fills volume and mass with GMCs
     '''
     rCO = 0.17e3 * r25 # pc
-    radii = 10**np.arange(0, np.log10(2*rCO), logR_step) # pc
+    logR_max = logR_end*1e3 if logR_end is not None else np.log10(2*rCO) # pc
+    radii = 10**np.arange(0, logR_max, logR_step) # pc
     mass = [Mmol_r(r, Mmol_tot, rCO) for r in radii]     # Msun
     volume = [Vmol_r(r, rCO) for r in radii]             # cm^-3
     # setting a radially-quantized DataFrame for the galaxy
-    quanta = pd.DataFrame({
+    galdf = pd.DataFrame({
         'r': radii,                              # radius in pc = external radius of ring
         'V_r': np.diff(volume, prepend=0),       # ring volume in cm^3
         'M_r': np.diff(mass, prepend=0)})        # ring molecular mass in Msun
-    # add GMCs to quanta DataFrame
+    # add GMCs to galdf DataFrame
     gmcCounts = ['N_%s' % gmc.name for gmc in gmcs]
-    quanta[gmcCounts] = 0
-    quanta[gmcCounts] = quanta[gmcCounts].astype(int)
+    galdf[gmcCounts] = 0
+    galdf[gmcCounts] = galdf[gmcCounts].astype(int)
     # setting a GMC cluster
     CF = cluster_factor(a, gmcs)
     mass_distr = gmc_distribution(a) / np.array([gmc.M for gmc in gmcs])
@@ -157,26 +173,26 @@ def gmc_fill(outfolder, Mmol_tot, r25, logR_step, gmcs, a, n_cores=None, verbose
     clusterVolume = sum(clusterNums * np.array([gmc.V for gmc in gmcs]))
     cluster_params = (clusterNums, clusterMass, clusterVolume)
     # plug the GMCs powerlaw-randomly
-    quanta['M_plugged'] = 0
-    quanta['V_plugged'] = 0
+    galdf['V_plugged'] = 0
+    galdf['M_plugged'] = 0
     # parallelize the rings fill-up
     num_cores = n_cores if n_cores is not None else multiprocessing.cpu_count()
     gmc_rings = Parallel(n_jobs=num_cores)(delayed(gmc_fill_single_ring)(
-        i, quanta.loc[i], gmcs, mass_distr, cluster_params, verbose=verbose) for i in quanta.index)
+        i, galdf.loc[i], gmcs, mass_distr, cluster_params, verbose=verbose) for i in galdf.index)
     for i in range(len(gmc_rings)):
-        quanta.loc[i] = gmc_rings[i]
+        galdf.loc[i] = gmc_rings[i]
     # add n(r) [cm^-3] and N_H(r) [cm^-2]
-    quanta['n_r'] = (quanta.M_r.cumsum()*msun/(mu*mp))/quanta.V_r.cumsum()
-    quanta['NH_r'] = [simpson(quanta['n_r'].iloc[:i], 
-        x=pc*quanta.r.iloc[:i]) for i in range(1, len(quanta.index)+1)]
+    galdf['n_r'] = (galdf.M_r.cumsum()*msun/(mu*mp))/galdf.V_r.cumsum()
+    galdf['NH_r'] = [simpson(galdf['n_r'].iloc[:i], 
+        x=pc*galdf.r.iloc[:i]) for i in range(1, len(galdf.index)+1)]
     if not os.path.exists(outfolder):
         os.mkdir(outfolder)
-    quanta.to_csv('%sGMCs_Nradii%1d_a%1d.csv' % (outfolder, len(quanta), int(1e2*a)))
-    return quanta
+    galdf.to_csv('%sGMCs_Nradii%1d_a%1d.csv' % (outfolder, len(galdf), int(1e2*a)))
+    return galdf
 
 
-def baseline_sled(quanda, gmcs, logLX, FUVparams, flatNH=None, G0floor=False, Jmax=13):
-    quanta = quanda.copy()
+def baseline_sled(galdf, gmcs, logLX, FUVparams, flatNH=None, G0floor=False, Jmax=13):
+    galdf = galdf.copy()
     # XDR (NH is in logLX_1_100, but we compute it only if logNH>22)
     if flatNH:
         if flatNH > 22:
@@ -184,24 +200,24 @@ def baseline_sled(quanda, gmcs, logLX, FUVparams, flatNH=None, G0floor=False, Jm
         else:
             logLX_1_100 = logLX - np.log10(0.256)
     else:
-        NH_r = quanta['NH_r'].to_numpy()
+        NH_r = galdf['NH_r'].to_numpy()
         logNHr22 = np.array([np.log10(x)-22 if x > 0 else 0 for x in NH_r])
         logLX_1_100 = logLX - np.log10(0.256) - 0.9 * logNHr22
-    quanta['logFX_r'] = logLX_1_100 - np.log10(4*pi * (pc*quanta['r'])**2)
+    galdf['logFX_r'] = logLX_1_100 - np.log10(4*pi * (pc*galdf['r'])**2)
     logFX_min = min(logFX) - 0.125
     # PDR
     Ie, Re, n = FUVparams
-    G0_r = np.array([sersic(x, Ie, Re, n) for x in quanta['r']/1e3]) / 1.6e-3
-    quanta['logG0_r'] = np.log10(G0_r)
+    G0_r = np.array([sersic(x, Ie, Re, n) for x in galdf['r']/1e3]) / 1.6e-3
+    galdf['logG0_r'] = np.log10(G0_r)
     if G0floor:
-        quanta.loc[(quanta['logG0_r'] < min(logG0)), 'logG0_r'] = min(logG0)
+        galdf.loc[(galdf['logG0_r'] < min(logG0)), 'logG0_r'] = min(logG0)
     # jump at the first massive radial bin but stop before flux too low
-    iMassive = quanta[quanta['M_plugged'] > 0].index
-    iPDR = [i for i in iMassive if i not in quanta[quanta['logG0_r'] < (min(logG0) - 0.125)].index]
-    iXDR = [i for i in iMassive if i not in quanta[quanta['logFX_r'] < (min(logFX) - 0.125)].index]
-    qPDR, qXDR = quanta.loc[iPDR], quanta.loc[iXDR]
-    qPDR['QlogG0'] = [gnames[np.abs(logG0 - quanta.loc[i, 'logG0_r']).argmin()] for i in iPDR]
-    qXDR['QlogFX'] = [xnames[np.abs(logFX - quanta.loc[i, 'logFX_r']).argmin()] for i in iXDR]
+    iMassive = galdf[galdf['M_plugged'] > 0].index
+    iPDR = [i for i in iMassive if i not in galdf[galdf['logG0_r'] < (min(logG0) - 0.125)].index]
+    iXDR = [i for i in iMassive if i not in galdf[galdf['logFX_r'] < (min(logFX) - 0.125)].index]
+    qPDR, qXDR = galdf.loc[iPDR], galdf.loc[iXDR]
+    qPDR['QlogG0'] = [gnames[np.abs(logG0 - galdf.loc[i, 'logG0_r']).argmin()] for i in iPDR]
+    qXDR['QlogFX'] = [xnames[np.abs(logFX - galdf.loc[i, 'logFX_r']).argmin()] for i in iXDR]
     basePDR, baseXDR = np.zeros(Jmax), np.zeros(Jmax)
     gmcCounts = ['N_%s' % gmc.name for gmc in gmcs]
     for i, gmc in enumerate(gmcs):
@@ -239,7 +255,7 @@ def chi_sled(obSLED, fitSLED, chi_thresh=None, Nfree=0):
     return chi, red_chi
 
 
-def COfit(obSLED, quanta, gmcs, logLX, FUVparams, G0floor, Jmax=13, chi_thresh=None):
+def COfit(obSLED, galdf, gmcs, logLX, FUVparams, G0floor, Jmax=13, chi_thresh=None):
     '''
     Fit the observed CO SLED with the baseline model
     It will return the best-fit (alphaCO, logNH, red_chi)
@@ -248,7 +264,7 @@ def COfit(obSLED, quanta, gmcs, logLX, FUVparams, G0floor, Jmax=13, chi_thresh=N
     alphaCO_values = np.logspace(-2, 1, 25) * 4.3
     minimalia = [np.nan, np.nan, 1e9]  # initialize minimalia[2]=redchi to a large value
     for logNH_temp in logNH_values:
-        fitSLED = baseline_sled(quanta, gmcs, logLX, FUVparams,
+        fitSLED = baseline_sled(galdf, gmcs, logLX, FUVparams,
                                 flatNH=logNH_temp, G0floor=G0floor, Jmax=Jmax)[2]
         for norm_temp in alphaCO_values/4.3:
             redchi_temp = chi_sled(obSLED, norm_temp*fitSLED, chi_thresh, Nfree=2)[1]

@@ -1,8 +1,22 @@
-# license etc
+# galaxySLED: a code to reproduce and fit a galaxy CO SLED
+# Copyright (C) 2023  Federico Esposito
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 
 # IMPORT PACKAGES
-
 import numpy as np
 import pandas as pd
 
@@ -51,7 +65,7 @@ class GMC:
 ### GMC lists
 
 # import the GMC csv with all the GMC parameters
-e23csv = pd.read_csv('/media/phd/hub/gmchub/data/GMC_e23.csv', index_col=0)
+e23csv = pd.read_csv('./data/GMC_e23.csv', index_col=0)
 
 # generate the GMC list
 e23list = []
