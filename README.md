@@ -1,4 +1,4 @@
-# galaxySLED
+# galaxySLED: a code to reproduce and fit a galaxy CO SLED
 A new physically-motivated model for estimating the molecular line emission in active galaxies
 
 ## What do you need it for
