@@ -255,21 +255,21 @@ def chi_sled(obSLED, fitSLED, chi_thresh=None, Nfree=0):
     return chi, red_chi
 
 
-def COfit(obSLED, galdf, gmcs, logLX, FUVparams, G0floor, Jmax=13, chi_thresh=None):
+def COfit(obSLED, galdf, gmcs, logLX, FUVparams, G0floor, alphaCOin=4.3, Jmax=13, chi_thresh=None):
     '''
     Fit the observed CO SLED with the baseline model
     It will return the best-fit (alphaCO, logNH, red_chi)
     '''
     logNH_values = np.arange(22., 25.01, 0.1)
-    alphaCO_values = np.logspace(-2, 1, 25) * 4.3
+    alphaCO_values = np.logspace(-2, 1, 25) * alphaCOin
     minimalia = [np.nan, np.nan, 1e9]  # initialize minimalia[2]=redchi to a large value
     for logNH_temp in logNH_values:
         fitSLED = baseline_sled(galdf, gmcs, logLX, FUVparams,
                                 flatNH=logNH_temp, G0floor=G0floor, Jmax=Jmax)[2]
-        for norm_temp in alphaCO_values/4.3:
+        for norm_temp in alphaCO_values/alphaCOin:
             redchi_temp = chi_sled(obSLED, norm_temp*fitSLED, chi_thresh, Nfree=2)[1]
             if redchi_temp <= minimalia[2]:
                 minimalia = [logNH_temp, norm_temp, redchi_temp]
-    logNHflat, alphaCO, redchi = minimalia[0], minimalia[1] * 4.3, minimalia[2]
+    logNHflat, alphaCO, redchi = minimalia[0], minimalia[1] * alphaCOin, minimalia[2]
     return (logNHflat, alphaCO, redchi)
 
