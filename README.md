@@ -51,3 +51,10 @@ The `data` directory contains the PDR and XDR emission for different Giant Molec
 The `modules` directory contains the Python modules with the functions that run the different parts of the code. The `gmcs.py` module contains the definition of the GMC class and the list of the available built-in GMCs. The `functions.py` module contains all the useful functions.
 
 The `ngc7469` directory contains a single file, which can be reproduced by the notebook. Every row is a different galactocentric radius, and the columns are the radial profiles of mass, volume, number of GMCs, column density, etc.
+
+* * *
+
+# Acknowledgements
+
+The galaxySLED logo uses the following icon: 
+<a href="https://www.flaticon.com/free-icons/black-hole" title="black hole icons">Black hole icons created by Freepik - Flaticon</a>
