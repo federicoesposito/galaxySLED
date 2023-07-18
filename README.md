@@ -28,7 +28,8 @@ The output will be:
 
 ## Download the code and set up the environment
 You can download the zipped directory [here](https://github.com/federicoesposito/galaxySLED/archive/refs/heads/main.zip) or from [github](https://github.com/federicoesposito/galaxySLED).
-I suggest you to create a new environment.
+
+I suggest you to create a new environment on your machine.
 If you have `conda`, just type in a terminal `conda create --name myenv`.
 Once created, activate it with the command `conda activate myenv`.
 Now you can install all the necessary packages within this environment.
