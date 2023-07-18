@@ -17,7 +17,7 @@ If you already have the luminosity of some CO lines, you can make the baseline m
 Input the CO luminosities with their errors, it works with upper limits as well.
 The output will be:
 - The best-fit CO SLED, up to CO(30-29)
-- The best-fit CO-to-H$_2$ conversion factor $\alpha_{CO}$
+- The best-fit CO-to-H2 conversion factor $\alpha_{CO}$
 - The best-fit X-ray attenuation column density $N_H$
 
 ## Download the code and the data
