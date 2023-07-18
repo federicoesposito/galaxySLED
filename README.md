@@ -38,7 +38,7 @@ Now you can install all the necessary packages within this environment.
 - `multiprocessing`
 - `matplotlib` (this is needed only in the notebook)
 
-## Run the python notebook `gmc_notebook.ipynb` to learn how to use the code
+## Run the python notebook `galaxySLED_notebook.ipynb` to learn how to use the code
 The notebook contains a walkthrough and a real-galaxy example for calculating the CO SLED (with plots)
 
 ## What are the contents of the code directories
