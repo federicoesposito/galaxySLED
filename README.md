@@ -23,11 +23,7 @@ The output will be:
 
 <img src="./ngc7469/ngc7469_bestfit.png" alt="Best-fit CO SLED of NGC 7469" width="500"/>
 
-## Download the code and the data
-- Select the drop-down menu "Code" and click "Download ZIP"
-- Extract it in your favourite location
-
-## Set up the environment
+## Download the code and set up the environment
 I suggest you to create a new environment.
 If you have `conda`, just type in a terminal `conda create --name myenv`.
 Once created, activate it with the command `conda activate myenv`.
