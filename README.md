@@ -43,6 +43,8 @@ Now you can install all the necessary packages within this environment.
 ## Run the python notebook `galaxySLED_notebook.ipynb` to learn how to use the code
 The notebook contains a walkthrough and a real-galaxy example for calculating the CO SLED (with plots)
 
+* * *
+
 ## What are the contents of the code directories
 The `data` directory contains the PDR and XDR emission for different Giant Molecular Clouds (GMCs). At the moment there is only one model of 15 GMCs (which is the one described in Esposito et al., subm.). There is one file, `GMC_e23.csv`, which contains the description of each GMC (as their masses, radii, etc). The other files, 2 for each GMC, contain the PDR and XDR estimated emission: every column is a CO line, where `CO4` means the CO(4-3) line, and every row is a different incident flux.
 
