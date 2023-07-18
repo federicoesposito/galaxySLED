@@ -11,7 +11,8 @@ To produce the baseline CO SLED you need to feed the code with:
 - The intrinsic nuclear X-ray luminosity
 - The three Sersic parameters for the FUV flux
 
-With these input data, the code will produce the expected CO SLED of your object.
+With these input data, the code will produce the expected CO SLED of your object: this is called the "Baseline model".
+<img src="./ngc7469/ngc7469_baseline.png" alt="Baseline CO SLED of NGC 7469" width="500"/>
 
 If you already have the luminosity of some CO lines, you can make the baseline model fit the observed data.
 Input the CO luminosities with their errors, it works with upper limits as well.
@@ -19,6 +20,8 @@ The output will be:
 - The best-fit CO SLED, up to CO(30-29)
 - The best-fit CO-to-H2 conversion factor $\alpha_{CO}$
 - The best-fit X-ray attenuation column density $N_H$
+
+<img src="./ngc7469/ngc7469_bestfit.png" alt="Best-fit CO SLED of NGC 7469" width="500"/>
 
 ## Download the code and the data
 - Select the drop-down menu "Code" and click "Download ZIP"
