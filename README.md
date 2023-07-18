@@ -4,6 +4,22 @@ A new physically-motivated model for estimating the molecular line emission in a
 ## What do you need it for
 We developed a code to estimate the CO emission in AGN-host galaxies. The underlying model is described in Esposito et al. (submitted), and it has been tested with the data presented in Esposito et al. 2022.
 
+#### What you have to input
+To produce the baseline CO SLED you need to feed the code with:
+- The molecular gas mass of your object
+- The optical radius
+- The intrinsic nuclear X-ray luminosity
+- The three Sersic parameters for the FUV flux
+
+With these input data, the code will produce the expected CO SLED of your object.
+
+If you already have the luminosity of some CO lines, you can make the baseline model fit the observed data.
+Input the CO luminosities with their errors, it works with upper limits as well.
+The output will be:
+- The best-fit CO SLED, up to CO(30-29)
+- The best-fit CO-to-H$_2$ conversion factor $\alpha_{CO}$
+- The best-fit X-ray attenuation column density $N_H$
+
 ## Download the code and the data
 - Select the drop-down menu "Code" and click "Download ZIP"
 - Extract it in your favourite location
@@ -18,7 +34,7 @@ Now you can install all the necessary packages within this environment.
 - `numpy`
 - `pandas`
 - `scipy`
-- `joblib`
+- `joblib` ([link](https://joblib.readthedocs.io/en/latest/installing.html))
 - `multiprocessing`
 - `matplotlib` (this is needed only in the notebook)
 
