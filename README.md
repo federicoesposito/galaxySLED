@@ -1,26 +1,29 @@
 # galaxySLED: a code to reproduce and fit a galaxy CO SLED
-A new physically-motivated model for estimating the molecular line emission in active galaxies
+A new physically-motivated model for estimating the molecular line emission in active galaxies.
+The underlying model is described in Esposito et al. (submitted), and it has been tested with the galaxies data presented in Esposito et al. 2022.
 
-## What do you need it for
-We developed a code to estimate the CO emission in AGN-host galaxies. The underlying model is described in Esposito et al. (submitted), and it has been tested with the data presented in Esposito et al. 2022.
+The model takes into account:
+- the internal density structure of giant molecular clouds (GMCs)
+- the heating associated both to stars and to the active galactic nuclei (AGN), respectively producing photodissociation regions (PDRs) and X-ray dominated regions (XDRs) within the GMCs
+- the mass distribution of GMCs within the galaxy volume
 
 #### What you have to input
-To produce the baseline CO SLED you need to feed the code with:
+To produce a CO SLED you need to feed the code with:
 - The molecular gas mass of your object
 - The optical radius
 - The intrinsic nuclear X-ray luminosity
-- The three Sersic parameters for the FUV flux
+- The three Sersic parameters (Ie, Re, n) for the FUV flux
 
 With these input data, the code will produce the expected CO SLED of your object: this is called the "Baseline model".
 <img src="./ngc7469/ngc7469_baseline.png" alt="Baseline CO SLED of NGC 7469" width="500"/>
 
+#### Fitting an observed CO SLED
 If you already have the luminosity of some CO lines, you can make the baseline model fit the observed data.
 Input the CO luminosities with their errors, it works with upper limits as well.
 The output will be:
 - The best-fit CO SLED, up to CO(30-29)
-- The best-fit CO-to-H2 conversion factor $\alpha_{CO}$
-- The best-fit X-ray attenuation column density $N_H$
-
+- The best-fit CO-to-H2 conversion factor alphaCO
+- The best-fit X-ray attenuation column density NH
 <img src="./ngc7469/ngc7469_bestfit.png" alt="Best-fit CO SLED of NGC 7469" width="500"/>
 
 ## Download the code and set up the environment
