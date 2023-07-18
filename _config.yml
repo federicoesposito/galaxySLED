@@ -1,6 +1,5 @@
-remote_theme: pages-themes/minimal@v0.2.0
-plugins:
-- jekyll-remote-theme
+theme: jekyll-theme-minimal
+logo: logo.png
 title: galaxySLED
 description: A new physically-motivated model for estimating the molecular line emission in active galaxies
 show_downloads: True
