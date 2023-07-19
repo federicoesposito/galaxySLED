@@ -7,17 +7,19 @@ The model takes into account:
 - the heating associated both to stars and to the active galactic nuclei (AGN), respectively producing photodissociation regions (PDRs) and X-ray dominated regions (XDRs) within the GMCs
 - the mass distribution of GMCs within the galaxy volume
 
-#### What you have to input
-To produce a CO SLED you need to feed the code with:
+#### What you have to input to produce a CO SLED
+To produce a synthetic CO SLED you need to feed the code with:
 - The molecular gas mass of your object
 - The optical radius
 - The intrinsic nuclear X-ray luminosity
 - The three Sersic parameters (Ie, Re, n) for the FUV flux
 
 With these input data, the code will produce the expected CO SLED of your object: this is called the "Baseline model".
+This can be useful for your telescope proposals, or you can play with it by changing one of the input to see their impact on the CO distribution and emission.
+
 <img src="./ngc7469/ngc7469_baseline.png" alt="Baseline CO SLED of NGC 7469" width="500"/>
 
-#### Fitting an observed CO SLED
+#### Fitting an observed CO SLED to derive alphaCO and NH
 If you already have the luminosity of some CO lines, you can make the baseline model fit the observed data.
 Input the CO luminosities with their errors, it works with upper limits as well.
 The output will be:
