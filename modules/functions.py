@@ -152,7 +152,7 @@ def gmc_fill(outfolder, Mmol_tot, r25, logR_end=None, logR_step=0.05, a=1.64, gm
     Calculates the galaxy volume, then it fills volume and mass with GMCs
     '''
     rCO = 0.17e3 * r25 # pc
-    logR_max = logR_end*1e3 if logR_end is not None else np.log10(2*rCO) # pc
+    logR_max = logR_end if logR_end is not None else np.log10(2*rCO) # pc
     radii = 10**np.arange(0, logR_max, logR_step) # pc
     mass = [Mmol_r(r, Mmol_tot, rCO) for r in radii]     # Msun
     volume = [Vmol_r(r, rCO) for r in radii]             # cm^-3
