@@ -32,17 +32,11 @@ The output will be:
 You can download the zipped directory [here](https://github.com/federicoesposito/galaxySLED/archive/refs/heads/main.zip) or from [github](https://github.com/federicoesposito/galaxySLED).
 
 I suggest you to create a new environment on your machine.
-If you have `conda`, just type in a terminal `conda create --name myenv`.
-Once created, activate it with the command `conda activate myenv`.
-Now you can install all the necessary packages within this environment.
-
-#### Necessary Python packages
-- `numpy`
-- `pandas`
-- `scipy`
-- `joblib` ([link](https://joblib.readthedocs.io/en/latest/installing.html))
-- `multiprocessing`
-- `matplotlib` (this is needed only in the notebook)
+You can find a `galaxysled_env.yml` file in the main directory, 
+which contains all the packages and versions you need to install.
+If you have `conda`, you can just type in a terminal `conda env create -f galaxysled_env.yml`:
+this will create an environment called `galaxysled` containing all the necessary packages.
+Once created, activate it with the command `conda activate galaxysled`.
 
 ## Run the python notebook `galaxySLED_notebook.ipynb` to learn how to use the code
 The notebook contains a walkthrough and a real-galaxy example for calculating the CO SLED (with plots)
