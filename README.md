@@ -1,6 +1,6 @@
 # galaxySLED: a code to reproduce and fit a galaxy CO SLED
 A new physically-motivated model for estimating the molecular line emission in active galaxies.
-The underlying model is described in Esposito et al. (submitted), and it has been tested with the galaxies data presented in [Esposito et al. 2022](https://ui.adsabs.harvard.edu/abs/2022MNRAS.512..686E/abstract).
+The underlying model is described in [Esposito et al. 2024](https://ui.adsabs.harvard.edu/abs/2024MNRAS.527.8727E/abstract), and it has been tested with the galaxies data presented in [Esposito et al. 2022](https://ui.adsabs.harvard.edu/abs/2022MNRAS.512..686E/abstract).
 
 The model takes into account:
 - the internal density structure of giant molecular clouds (GMCs)
