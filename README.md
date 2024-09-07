@@ -61,7 +61,7 @@ The `src/galaxysled/resources` directory contains the PDR and XDR emission for d
 
 The `src/galaxysled` directory contains the Python modules with the functions that run the different parts of the code. The `gmcs.py` module contains the definition of the GMC class and the list of the available built-in GMCs. The `functions.py` module contains all the useful functions. The `functions_mcmc.py` contains some functions for a Markov chain Monte Carlo (MCMC) analysis. The `__init__.py` file is used to initialize the galaxySLED package by importing the module packages.
 
-The `docs/ngc7469` directory contains a single file, which can be reproduced by the notebook. Every row is a different galactocentric radius, and the columns are the radial profiles of mass, volume, number of GMCs, column density, etc.
+The `docs/ngc7469` directory contains a single `.csv` file, which can be reproduced by the notebook. Every row is a different galactocentric radius, and the columns are the radial profiles of mass, volume, number of GMCs, column density, etc.
 
 * * *
 
