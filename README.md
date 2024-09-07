@@ -28,6 +28,12 @@ The output will be:
 - The best-fit X-ray attenuation column density NH
 <img src="docs/ngc7469/ngc7469_bestfit.png" alt="Best-fit CO SLED of NGC 7469" width="500"/>
 
+#### Fitting an observed CO SLED with a MCMC algorithm
+A more sophisticated approach to fit the observed CO SLED is to use a Bayesian Markov chain monte Carlo (MCMC) method with a chi-square likelihood function. This will determine the posterior probability distribution of the model parameters, i.e. the CO-to-H2 conversion factor alphaCO and the X-ray attenuation column density NH.
+<img src="docs/ngc7469/ngc7469_MCMC_bestfit.png" alt="Best MCMC-fit CO SLED of NGC 7469" width="500"/>
+<img src="docs/ngc7469/ngc7469_MCMC_posteriors.png" alt="Posterior distributions of alphaCO and NH for NGC 7469" width="500"/>
+
+
 ## Download the code and set up the environment
 You can directly install galaxySLED from the Python Package Index with the command `pip install galaxysled`.
 You can also download the zipped directory [here](https://github.com/federicoesposito/galaxySLED/archive/refs/heads/main.zip) or from [github](https://github.com/federicoesposito/galaxySLED), or the zipped [package](https://github.com/federicoesposito/galaxySLED/blob/main/dist/galaxysled-0.1.4.tar.gz).
@@ -60,6 +66,8 @@ Now type `jupyter notebook` in the terminal to open Jupyter, and open the `.ipyn
 The `src/galaxysled/resources` directory contains the PDR and XDR emission for different Giant Molecular Clouds (GMCs). At the moment there is only one model of 15 GMCs (which is the one described in Esposito et al., 2024). There is one file, `GMC_e24.csv`, which contains the description of each GMC (as their masses, radii, etc). The other files, 2 for each GMC, contain the PDR and XDR estimated emission: every column is a CO line, where `CO4` means the CO(4-3) line, and every row is a different incident flux.
 
 The `src/galaxysled` directory contains the Python modules with the functions that run the different parts of the code. The `gmcs.py` module contains the definition of the GMC class and the list of the available built-in GMCs. The `functions.py` module contains all the useful functions. The `functions_mcmc.py` contains some functions for a Markov chain Monte Carlo (MCMC) analysis. The `__init__.py` file is used to initialize the galaxySLED package by importing the module packages.
+
+The `tests/test_gmc_fill.py` contains the first blocks of the Jupyter notebook. It is intended to test the `gmc_fill` function in a quick way (not for science use).
 
 The `docs/ngc7469` directory contains a single `.csv` file, which can be reproduced by the notebook. Every row is a different galactocentric radius, and the columns are the radial profiles of mass, volume, number of GMCs, column density, etc.
 
