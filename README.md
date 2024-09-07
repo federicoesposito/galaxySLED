@@ -36,7 +36,7 @@ A more sophisticated approach to fit the observed CO SLED is to use a Bayesian M
 
 ## Download the code and set up the environment
 You can directly install galaxySLED from the Python Package Index with the command `pip install galaxysled`.
-You can also download the zipped directory [here](https://github.com/federicoesposito/galaxySLED/archive/refs/heads/main.zip) or from [github](https://github.com/federicoesposito/galaxySLED), or the zipped [package](https://github.com/federicoesposito/galaxySLED/blob/main/dist/galaxysled-0.1.4.tar.gz).
+You can also download the zipped directory [here](https://github.com/federicoesposito/galaxySLED/archive/refs/heads/main.zip) or from [github](https://github.com/federicoesposito/galaxySLED), or the zipped [package](https://github.com/federicoesposito/galaxySLED/blob/main/dist/galaxysled-0.1.5.tar.gz).
 
 I suggest you to create a new environment on your machine.
 You can do so by typing the command `python3 -m venv galaxysled_env`, where you can substitute `galaxysled_env` with the name you want. This command will create a directory named as your new environment. To activate it from the current directory, type the command `source galaxysled_env/bin/activate`. This will change your shell's prompt to show what virtual environment you're using. 
