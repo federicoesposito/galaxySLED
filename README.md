@@ -17,7 +17,7 @@ To produce a synthetic CO SLED you need to feed the code with:
 With these input data, the code will produce the expected CO SLED of your object: this is called the "Baseline model".
 This can be useful for your telescope proposals, or you can play with it by changing one of the input to see their impact on the CO distribution and emission.
 
-<img src=".docs/ngc7469/ngc7469_baseline.png" alt="Baseline CO SLED of NGC 7469" width="500"/>
+<img src="docs/ngc7469/ngc7469_baseline.png" alt="Baseline CO SLED of NGC 7469" width="500"/>
 
 #### Fitting an observed CO SLED to derive alphaCO and NH
 If you already have the luminosity of some CO lines, you can make the baseline model fit the observed data.
@@ -26,7 +26,7 @@ The output will be:
 - The best-fit CO SLED, up to CO(30-29)
 - The best-fit CO-to-H2 conversion factor alphaCO
 - The best-fit X-ray attenuation column density NH
-<img src=".docs/ngc7469/ngc7469_bestfit.png" alt="Best-fit CO SLED of NGC 7469" width="500"/>
+<img src="docs/ngc7469/ngc7469_bestfit.png" alt="Best-fit CO SLED of NGC 7469" width="500"/>
 
 ## Download the code and set up the environment
 You can directly install galaxySLED from the Python Package Index with the command `pip install galaxysled`.
