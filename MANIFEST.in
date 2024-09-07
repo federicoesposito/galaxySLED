@@ -1,0 +1,6 @@
+# galaxySLED
+graft src
+graft src/galaxysled
+graft src/galaxysled/resources
+graft tests
+include docs/galaxySLED_notebook.ipynb
