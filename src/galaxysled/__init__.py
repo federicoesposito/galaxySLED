@@ -24,4 +24,4 @@ from galaxysled.functions_mcmc import *
 
 
 # Version of the galaxysled package
-__version__ = '0.1.4'
+__version__ = '0.1.6'

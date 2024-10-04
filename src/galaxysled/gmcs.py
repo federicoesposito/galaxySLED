@@ -72,12 +72,29 @@ class GMC:
 
 # import the GMC csv with all the GMC parameters
 e24csv = pd.read_csv(BytesIO(pkgutil.get_data(__name__, 'resources/GMC_e24.csv')), index_col=0)
+f24csv = pd.read_csv(BytesIO(pkgutil.get_data(__name__, 'resources/GMC_f24.csv')), index_col=0)
 
-# generate the GMC list
+# generate the e24 GMC list
 e24list = []
 for name in e24csv.columns[:-1].to_list():
     gmc = e24csv[name]
     e24list.append(
+        GMC(
+            name = name,
+            M = 10**gmc.loc['logM'], # Msun
+            R = 10**gmc.loc['logR'], # pc
+            rho0 = mu * mp * 10**gmc.loc['logn0'], # cm^-3
+            Mach = gmc.loc['Mach'],
+            Temp = gmc.loc['Temp'],
+            Nclumps = gmc.loc['Nclumps']
+            )
+        )
+
+# generate the f24 GMC list
+f24list = []
+for name in f24csv.columns[:-1].to_list():
+    gmc = f24csv[name]
+    f24list.append(
         GMC(
             name = name,
             M = 10**gmc.loc['logM'], # Msun
