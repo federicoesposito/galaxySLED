@@ -88,3 +88,7 @@ October 4, 2025 -- Release 0.1.8 (PyPI, github)
 * added a related cell to the notebook
 * set up local git and configured git commit and push
 * changed github repo name: "galaxySLED" --> "galaxysled"
+
+December 19, 2025 -- Release 0.1.9 (PyPI, github)
+* added f24z65 list of GMCs, identical to f24 but with CMB at z=6.5
+* did NOT update README.md with the new GMCs

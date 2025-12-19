@@ -27,7 +27,7 @@ long_description = (here / "README.md").read_text(encoding="utf-8")
 # Setup
 setup(
     name="galaxysled",
-    version="0.1.8",
+    version="0.1.9",
     description="A code to reproduce and fit a galaxy CO SLED",
     long_description=long_description,
     long_description_content_type="text/markdown",
